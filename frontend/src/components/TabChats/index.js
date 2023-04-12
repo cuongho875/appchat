@@ -11,7 +11,7 @@ export default function TabChats() {
   const messageReceiver = useSelector((state)=>state.messageReceiver);
   const loadData = ()=>{
     api.get(`/message/getListBoxChat/${user.userId}`).then((res)=>{
-      console.log(res.data)
+      // console.log(res.data)
       setData(res.data);
       setDataInitial(res.data);
     })
@@ -38,19 +38,19 @@ export default function TabChats() {
   return (
     <div className="w-full h-full bg-fuchsia-50	">
       <div className="pt-4 h-[130px]">
-        <div className="px-6">
+        <div className="px-6 text-2xl font-medium	">
         Chats
         </div>
         <div className="w-full flex mt-8 justify-center">
         <input ref={refSearch} type="text" 
         className="w-64 px-6 py-2 text-sm focus:outline-none rounded-md"
-        onChange={handleSearch} 
+        onChange={handleSearch}
         placeholder="Search here..."/>
     </div>      </div>
       <div className="w-full h-[calc(100vh - 130px)]">
        <div className="w-full h-full overflow-y-scroll">
         {data.map((item,index)=>{
-          return <ChatItem key={index} boxchat={item}/>
+          return <ChatItem key={index} data={item}/>
         })}
        </div>
       </div>

@@ -21,25 +21,25 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllMessageBySenderAndReciever(Long id1, Long id2);
 
     @Query(
-            value = "SELECT `message_id`,`content`,`type`,`receiver_id`,`sender_id`,last_message_time AS timestamp\n" +
-"FROM messages\n" +
-"INNER JOIN (\n" +
-"  SELECT \n" +
-"    CASE\n" +
-"      WHEN sender_id =?1 THEN receiver_id\n" +
-"      ELSE sender_id\n" +
-"    END AS chat_partner,\n" +
-"    MAX(timestamp) AS last_message_time\n" +
-"  FROM messages\n" +
-"  WHERE sender_id =?1 OR receiver_id =?1\n" +
-"  GROUP BY chat_partner\n" +
-") AS last_message\n" +
-"ON (\n" +
-"  (messages.sender_id =?1 AND messages.receiver_id = last_message.chat_partner)\n" +
-"  OR (messages.sender_id = last_message.chat_partner AND messages.receiver_id =?1)\n" +
-")\n" +
-"AND messages.timestamp = last_message.last_message_time\n" +
-"ORDER BY messages.timestamp DESC",
+            value = "SELECT `message_id`,`content`,`type`,`receiver_id`,`sender_id`,last_message_time AS timestamp\n"
+            + "FROM messages\n"
+            + "INNER JOIN (\n"
+            + "  SELECT \n"
+            + "    CASE\n"
+            + "      WHEN sender_id =?1 THEN receiver_id\n"
+            + "      ELSE sender_id\n"
+            + "    END AS chat_partner,\n"
+            + "    MAX(timestamp) AS last_message_time\n"
+            + "  FROM messages\n"
+            + "  WHERE sender_id =?1 OR receiver_id =?1\n"
+            + "  GROUP BY chat_partner\n"
+            + ") AS last_message\n"
+            + "ON (\n"
+            + "  (messages.sender_id =?1 AND messages.receiver_id = last_message.chat_partner)\n"
+            + "  OR (messages.sender_id = last_message.chat_partner AND messages.receiver_id =?1)\n"
+            + ")\n"
+            + "AND messages.timestamp = last_message.last_message_time\n"
+            + "ORDER BY messages.timestamp DESC",
             nativeQuery = true)
     List<Message> findListBoxChatByUserId(Long id);
 }

@@ -59,4 +59,16 @@ public class UserService implements UserDetailsService {
         User user =userRepository.findById(userId).orElse(null);
         return user.getFriends();
     }
+    public void addFriend(User user1,User user2) throws Exception{
+        if(user1 !=null && user2 !=null){
+            user1.getFriends().add(user2);
+            user2.getFriends().add(user1);
+            userRepository.save(user1);
+            userRepository.save(user2);
+        }
+    }
+    public List<User> searchUser(String keyword){
+        List<User> results = userRepository.searchUserByKeyword(keyword);
+        return results;
+    }
 }

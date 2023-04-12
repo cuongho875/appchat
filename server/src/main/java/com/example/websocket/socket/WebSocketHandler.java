@@ -69,7 +69,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
             Message chatMessage = common.getMessage();
             chatMessage.setTimestamp(new Date());
             logger.info(chatMessage.getContent());
-            session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(chatMessage)));;
+            session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(chatMessage)));
             if (listUser.containsKey(chatMessage.getReceiver().getUserId())) {
                 listUser.get(chatMessage.getReceiver().getUserId()).sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(chatMessage)));;
             }

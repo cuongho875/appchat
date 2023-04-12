@@ -6,6 +6,7 @@ import {
   activeProfile,
   activeSettings,
 } from "../../actions/menuActive";
+import { changeDarkMode, changeLightMode } from "../../actions/mode";
 import {
   MENU_CHATS,
   MENU_CONTACTS,
@@ -16,7 +17,7 @@ import ButtonMenu from "../ButtonMenu";
 import ProfileUser from "../ProfileUser";
 export default function MenuContainer() {
   const menu = useSelector((state) => state.menu);
-  const user = useSelector((state)=> state.authen);
+  const modeReducer = useSelector((state)=> state.modeReducer);
   const dispatch = useDispatch();
   return (
     <div className="h-full min-w-[75px] max-w-[75px] bg-[#2e2e2e] text-[#878a92] flex flex-wrap flex-col">
@@ -44,11 +45,14 @@ export default function MenuContainer() {
         onClick={() => dispatch(activeSettings())}
         active={menu === MENU_SETTINGS ? true : false}
       ></ButtonMenu>
-      <ButtonMenu icon="bx bx-moon" title="Dark Mode"></ButtonMenu>
-      {/* <ButtonMenu
+      {modeReducer==="light"?<ButtonMenu icon="bx bx-moon" title="Dark Mode"
+      onClick={()=> dispatch(changeDarkMode())}></ButtonMenu>:
+      <ButtonMenu
         icon="bx bx-sun"
         title="Light Mode"
-      ></ButtonMenu> */}
+        onClick={()=> dispatch(changeLightMode())}
+      ></ButtonMenu>
+      }
       <div className="mt-auto">
       <ProfileUser/>
       </div>

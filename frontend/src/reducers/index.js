@@ -4,11 +4,15 @@ import authen from './authentication';
 import socket from './websocket';
 import boxchat from './boxchat';
 import messageReceiver from './message';
+import friend from './friend';
+import modeReducer from './mode'
 const AllReducers = combineReducers({
     menu,
     authen,
     socket,
     boxchat,
-    messageReceiver
+    messageReceiver,
+    friend,
+    modeReducer
 });
 export default AllReducers;
