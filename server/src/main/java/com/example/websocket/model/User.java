@@ -48,6 +48,14 @@ public class User {
                 @JoinColumn(name = "friend_id")})
     @JsonIgnore
     private List<User> friends = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_group",
+            joinColumns = {
+                @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "group_id")})
+    @JsonIgnore
+    private List<Group> groups = new ArrayList<>();
 //    @ManyToMany(mappedBy = "users")
 //    @JsonIgnore
     @JsonIgnore
@@ -56,6 +64,9 @@ public class User {
     @JsonIgnore   
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> receivedMessages = new ArrayList<>();
+    @JsonIgnore   
+    @OneToMany(mappedBy = "senderGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MessageGroup> receivedMessageGroups = new ArrayList<>();
     public Long getUserId() {
         return userId;
     }
@@ -126,6 +137,22 @@ public class User {
 
     public void setReceivedMessages(List<Message> receivedMessages) {
         this.receivedMessages = receivedMessages;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public List<MessageGroup> getReceivedMessageGroups() {
+        return receivedMessageGroups;
+    }
+
+    public void setReceivedMessageGroups(List<MessageGroup> receivedMessageGroups) {
+        this.receivedMessageGroups = receivedMessageGroups;
     }
 
 

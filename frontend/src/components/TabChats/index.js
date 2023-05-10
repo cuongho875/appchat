@@ -36,7 +36,7 @@ export default function TabChats() {
     }))
   }
   return (
-    <div className="w-full h-full bg-fuchsia-50	">
+    <div className="w-full h-full bg-fuchsia-50	dark:bg-[#262626]">
       <div className="pt-4 h-[130px]">
         <div className="px-6 text-2xl font-medium	">
         Chats
@@ -48,7 +48,7 @@ export default function TabChats() {
         placeholder="Search here..."/>
     </div>      </div>
       <div className="w-full h-[calc(100vh - 130px)]">
-       <div className="w-full h-full overflow-y-scroll">
+       <div className="w-full h-full overflow-y-auto">
         {data.map((item,index)=>{
           return <ChatItem key={index} data={item}/>
         })}

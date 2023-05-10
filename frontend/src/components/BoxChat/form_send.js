@@ -26,6 +26,7 @@ export default function FormSend() {
         console.log(err);
       });
     refMessage.current.value = "";
+    refBtn.current.disabled = true;
     e.preventDefault();
   };
 
@@ -36,6 +37,8 @@ export default function FormSend() {
       refBtn.current.disabled = true;
     }
   };
+  useEffect(()=>{
+  })
   return (
     <div className="fixed bottom-0 w-full h-[15vh] flex items-center bg-white/50 bg-white">
       <div className="h-[50%] w-full px-6 flex items-center">
@@ -59,7 +62,7 @@ export default function FormSend() {
               ref={refBtn}
               className="h-10 bg-[#4eac6de6] w-10 text-white disabled:opacity-50 rounded-md transition-shadow	"
               type="submit"
-              disabled={true}
+              disabled={disable}
             >
               <i className="bx bxs-send"></i>{" "}
             </button>

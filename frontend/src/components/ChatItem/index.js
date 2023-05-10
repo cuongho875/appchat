@@ -25,10 +25,10 @@ export default function ChatItem({ data }) {
         }
       }
     }
-  },[chatActive])
+  },[chatActive,isActive])
   const dateFormat = new Date(data.timestamp);
   let date = getDayFromDate(dateFormat);
-  const className = isActive?" flex py-3 px-5 items-center cursor-pointer bg-slate-200 rounded-md":" flex py-3 px-5 items-center cursor-pointer hover:bg-slate-200 rounded-md";
+  const className = isActive?" flex py-3 px-5 items-center cursor-pointer dark:bg-[#1962c28a] bg-slate-200 rounded-md":" flex py-3 px-5 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-[#1962c28a] rounded-md";
   return (
     <div
       className={className}

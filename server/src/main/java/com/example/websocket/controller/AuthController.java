@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -51,13 +52,13 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity signUp(@RequestBody SignInRequest userRequest, HttpServletResponse response) {
+    public ResponseEntity signIn(@RequestParam String username,@RequestParam String password, HttpServletResponse response) {
         try {
-            User user = userService.findByUsername(userRequest.getUsername());
+            User user = userService.findByUsername(username);
             if (user != null) {
                 Authentication authentication = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(userRequest.getUsername(),
-                                userRequest.getPassword()));
+                        new UsernamePasswordAuthenticationToken(username,
+                                password));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 //genarate accessToken 
                 String jwt = jwtUtils.generateAccessToken((CustomUserDetails) authentication.getPrincipal());
@@ -89,17 +90,17 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity signUp(@RequestBody SignUpRequest userRequest) {
+    public ResponseEntity signUp(@RequestParam String username,@RequestParam String password,@RequestParam String firstName,@RequestParam String lastName) {
         try {
-            User user = userService.findByUsername(userRequest.getUsername());
+            User user = userService.findByUsername(username);
             if (user != null) {
                 return new ResponseEntity(new RandomStuff("Username exist"), HttpStatus.CONFLICT);
             }
             user = new User();
-            user.setUsername(userRequest.getUsername());
-            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-            user.setFirstName(userRequest.getFirstName());
-            user.setLastName(userRequest.getLastName());
+            user.setUsername(username);
+            user.setPassword(passwordEncoder.encode(password));
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
             user.setAvatar("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNL_ZnOTpXSvhf1UaK7beHey2BX42U6solRA&usqp=CAU");
             userService.save(user);
             return new ResponseEntity(new SignUpResponse(user, "Success"), HttpStatus.CREATED);
@@ -126,18 +127,5 @@ public class AuthController {
         return ResponseEntity.ok("logout");
     }
 
-    @GetMapping("test")
-    public ResponseEntity test() {
-        User user = userService.findByUsername("test123");
-//        User user1 = userService.findByUsername("test2");
-//        Group group = new Group();
-//        group.getUsers().add(user);
-//        groupRepository.save(group);
-//        Group group = groupRepository.findById(Integer.toUnsignedLong(1)).get();
-//        List<Group> groups = groupRepository.findGroupsByUserId(user.getUserId());
-//        groupRepository.save(group);
-//        userService.update(user);
-//        userService.update(user1);
-        return ResponseEntity.ok(user);
-    }
+
 }

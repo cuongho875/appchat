@@ -50,7 +50,7 @@ export default function BoxChat() {
       {boxchat ? (
         <div>
           <div className="absolute top-0 left-0 h-full w-full bg-slate-200"></div>
-          <div className="h-[85vh] overflow-y-scroll w-full relative bg-[url('https://doot-light.react.themesbrand.com/static/media/pattern-05.ffd181cdf9a08b200998.png')]">
+          <div className="h-[85vh] overflow-y-auto scrollbar scrollbar-thumb-gray-900 w-full relative bg-[url('https://doot-light.react.themesbrand.com/static/media/pattern-05.ffd181cdf9a08b200998.png')]">
             <TopBarUser />
             <div className="py-24 px-3">
               <ul>

@@ -28,7 +28,7 @@ export default function TabContacts() {
     );
   };
   return (
-    <div className="w-full h-full bg-fuchsia-50	">
+    <div className="w-full h-full bg-fuchsia-50	dark:bg-[#262626]">
       <div className="pt-4 h-[130px]">
         <div className="px-6 flex justify-between items-center">
           <div className="text-2xl font-medium	">Contacts</div>

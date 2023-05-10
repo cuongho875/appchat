@@ -1,6 +1,5 @@
 export const getDayFromDate = (date) => {
     const now = new Date();
-    if(now.getMonth() === date.getMonth()){
         if(now.getDate() === date.getDate()){
           let hours = date.getHours();
           let minutes = date.getMinutes();
@@ -12,7 +11,7 @@ export const getDayFromDate = (date) => {
           }
             return `${hours}:${minutes}`;
         }
-        else {
+        if(now.getTime()-date.getTime()<7){
             switch (date.getDay()) {
                 case 0:
                   return "CN";
@@ -36,17 +35,12 @@ export const getDayFromDate = (date) => {
                   break;
               }
         }
-    }
-    else{
-        const day = date.getDate()+1;
-        const month = date.getMonth()+1;
-        if(day<10){
-          day = "0"+ day;
-        }
-        if(month<10){
-          month = "0"+ month;
-        }
-        return `${day} Tháng ${month}`;
-    }
+        else{
+          const day = date.getDate()+1;
+          const month = date.getMonth()+1;
+            return `${day} Tháng ${month}`;
+      }
+
+
 
 };

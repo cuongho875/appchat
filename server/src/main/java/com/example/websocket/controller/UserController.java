@@ -4,8 +4,10 @@
  */
 package com.example.websocket.controller;
 
+import com.example.websocket.model.Group;
 import com.example.websocket.model.User;
 import com.example.websocket.payload.response.UserResponse;
+import com.example.websocket.service.GroupService;
 import com.example.websocket.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private GroupService groupService;
     @GetMapping("getUser/{userId}")
     public ResponseEntity getUser(@PathVariable("userId") Long id) {
         try {
@@ -46,6 +49,21 @@ public class UserController {
         try {
             List<User> listFriend = userService.getListFriend(id);
             return new ResponseEntity(listFriend, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+    }
+        @GetMapping("getListGroup/{userId}")
+    public ResponseEntity getListGroup(@PathVariable("userId") Long id) {
+        try {
+            User user = userService.findById(id);
+            if(user!=null){
+                List<Group> listGroup = user.getGroups();
+                return new ResponseEntity(listGroup, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity(HttpStatus.CONFLICT);
+            }
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
